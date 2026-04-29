@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC FBLA — Officer Interview Sign-Up</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Fraunces:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0b1a30;
+    --royal: #1c3d6e;
+    --blue-mid: #2a5298;
+    --gold: #d4a843;
+    --gold-light: #f5e6b8;
+    --gold-glow: rgba(212,168,67,0.12);
+    --cream: #faf8f3;
+    --white: #ffffff;
+    --gray-50: #f8f7f5;
+    --gray-100: #f0efeb;
+    --gray-200: #e2e0da;
+    --gray-300: #ccc9c0;
+    --gray-400: #a09d94;
+    --gray-600: #6b6860;
+    --red: #c0392b;
+    --red-light: #fdf0ef;
+    --green: #1d8348;
+    --green-light: #e6f5ec;
+    --shadow-sm: 0 1px 3px rgba(11,26,48,0.06);
+    --shadow-md: 0 4px 20px rgba(11,26,48,0.08);
+    --shadow-lg: 0 8px 40px rgba(11,26,48,0.12);
+    --shadow-glow: 0 0 40px rgba(212,168,67,0.15);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══ HERO ═══ */
+  .hero {
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+    padding: 3.5rem 1.5rem 3rem;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 15% 85%, rgba(212,168,67,0.14) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 85% 15%, rgba(42,82,152,0.25) 0%, transparent 70%),
+      repeating-linear-gradient(
+        135deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.01) 40px,
+        rgba(255,255,255,0.01) 41px
+      );
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(212,168,67,0.15);
+    border: 1px solid rgba(212,168,67,0.3);
+    color: var(--gold-light);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    color: var(--white);
+    line-height: 1.12;
+    margin-bottom: 0.6rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--gold);
+    display: block;
+  }
+  .hero p {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+
+  /* ═══ INFO STRIP ═══ */
+  .info-strip {
+    max-width: 780px;
+    margin: -1.5rem auto 0;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 2;
+  }
+  .info-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    padding: 1.25rem 1.75rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .info-item { text-align: center; }
+  .info-item .icon { font-size: 1.3rem; margin-bottom: 0.3rem; }
+  .info-item .label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-400);
+    font-weight: 600;
+  }
+  .info-item .val { font-weight: 700; font-size: 0.9rem; margin-top: 1px; }
+  .info-item .val small { font-weight: 400; font-size: 0.75rem; color: var(--gray-600); }
+
+  /* ═══ CONTAINER ═══ */
+  .container { max-width: 780px; margin: 2rem auto; padding: 0 1rem 4rem; }
+
+  /* ═══ STEPS ═══ */
+  .steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 1.75rem;
+  }
+  .stp {
+    display: flex; align-items: center; gap: 0.35rem;
+    font-size: 0.78rem; font-weight: 600; color: var(--gray-300);
+    transition: color 0.3s;
+  }
+  .stp.active { color: var(--navy); }
+  .stp.done { color: var(--green); }
+  .stp-n {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700;
+    background: var(--gray-100); color: var(--gray-400);
+    transition: all 0.3s;
+  }
+  .stp.active .stp-n { background: var(--navy); color: var(--white); }
+  .stp.done .stp-n { background: var(--green); color: var(--white); }
+  .stp-line { width: 36px; height: 2px; background: var(--gray-200); border-radius: 1px; }
+
+  /* ═══ PANELS ═══ */
+  .panel {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: 2rem 2.25rem;
+    display: none;
+  }
+  .panel.active { display: block; animation: rise 0.3s ease; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .panel h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 0.2rem;
+  }
+  .panel .sub { color: var(--gray-600); font-size: 0.88rem; margin-bottom: 1.5rem; line-height: 1.45; }
+
+  /* ═══ FORM INPUTS ═══ */
+  .field { margin-bottom: 1.1rem; }
+  .field label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: var(--navy);
+  }
+  .field input {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: var(--white);
+  }
+  .field input:focus {
+    border-color: var(--royal);
+    box-shadow: 0 0 0 3px rgba(28,61,110,0.08);
+  }
+  .field input.err { border-color: var(--red); }
+  .field .hint { font-size: 0.75rem; color: var(--gray-400); margin-top: 0.25rem; }
+  .field .errmsg { font-size: 0.75rem; color: var(--red); margin-top: 0.25rem; display: none; }
+  .field .errmsg.show { display: block; }
+
+  /* ═══ DAY TABS ═══ */
+  .day-tabs { display: flex; gap: 0.45rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .dtab {
+    padding: 0.5rem 1.1rem;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--navy);
+    transition: all 0.2s;
+  }
+  .dtab:hover { border-color: var(--royal); background: #f3f6fb; }
+  .dtab.active { border-color: var(--navy); background: var(--navy); color: var(--white); }
+  .dtab .slot-count {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    background: rgba(0,0,0,0.08);
+    padding: 0.1rem 0.4rem;
+    border-radius: 8px;
+    margin-left: 0.3rem;
+  }
+  .dtab.active .slot-count { background: rgba(255,255,255,0.2); }
+
+  /* ═══ SLOTS ═══ */
+  .slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.5rem;
+  }
+  .slot {
+    padding: 0.75rem 0.5rem;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .slot:hover:not(.taken):not(.loading) { border-color: var(--blue-mid); background: #f3f6fb; }
+  .slot .time { font-weight: 700; font-size: 0.92rem; }
+  .slot .avail { font-size: 0.68rem; margin-top: 3px; color: var(--green); font-weight: 500; }
+  .slot.taken { background: var(--gray-50); border-color: var(--gray-100); cursor: default; opacity: 0.6; }
+  .slot.taken .avail { color: var(--gray-400); }
+  .slot.picked { border-color: var(--gold); background: #fef9ee; box-shadow: 0 0 0 3px var(--gold-glow); }
+  .slot.loading { pointer-events: none; opacity: 0.5; }
+
+  .slots-loading {
+    text-align: center;
+    padding: 2.5rem 0;
+    color: var(--gray-400);
+    font-size: 0.9rem;
+  }
+  .slots-loading .spinner {
+    display: inline-block;
+    width: 24px; height: 24px;
+    border: 3px solid var(--gray-200);
+    border-top-color: var(--royal);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-bottom: 0.6rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ═══ GROUP NOTE ═══ */
+  .group-note {
+    background: linear-gradient(135deg, #f0f5ff 0%, #f5f1ff 100%);
+    border: 1px solid #dce4f5;
+    border-radius: var(--radius-sm);
+    padding: 0.9rem 1.1rem;
+    margin-top: 1.3rem;
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+  .group-note strong { color: var(--royal); }
+
+  /* ═══ CONFIRMATION ═══ */
+  .confirm-center { text-align: center; padding: 1.5rem 0; }
+  .confirm-check {
+    width: 60px; height: 60px;
+    background: var(--green-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.8rem;
+    color: var(--green);
+  }
+  .confirm-card {
+    display: inline-block;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    text-align: left;
+  }
+  .confirm-card .row { margin: 0.3rem 0; font-size: 0.92rem; }
+  .confirm-card .row b { font-weight: 600; min-width: 55px; display: inline-block; }
+
+  /* ═══ ERROR BANNER ═══ */
+  .err-banner {
+    background: var(--red-light);
+    border: 1px solid rgba(192,57,43,0.2);
+    color: var(--red);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1rem;
+    display: none;
+    line-height: 1.45;
+  }
+  .err-banner.show { display: block; animation: rise 0.25s ease; }
+
+  /* ═══ BUTTONS ═══ */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    padding: 0.65rem 1.4rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+  .btn-primary { background: var(--navy); color: var(--white); }
+  .btn-primary:hover { background: var(--royal); }
+  .btn-primary:disabled { background: var(--gray-300); cursor: not-allowed; }
+  .btn-outline { background: transparent; border: 2px solid var(--gray-200); color: var(--navy); }
+  .btn-outline:hover { border-color: var(--navy); }
+  .btn-gold { background: var(--gold); color: var(--navy); }
+  .btn-gold:hover { background: #c49a30; }
+
+  .btn-row { display: flex; gap: 0.65rem; margin-top: 1.5rem; flex-wrap: wrap; }
+
+  /* ═══ ADMIN ═══ */
+  .admin-toggle { text-align: center; margin-top: 2.5rem; }
+  .admin-toggle button {
+    background: none; border: none; color: var(--gray-400);
+    font-family: inherit; font-size: 0.78rem; cursor: pointer;
+    text-decoration: underline; text-underline-offset: 2px;
+  }
+  .admin-wrap {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: 2rem 2.25rem;
+    margin-top: 1rem;
+    display: none;
+  }
+  .admin-wrap.show { display: block; animation: rise 0.3s ease; }
+  .admin-wrap h2 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.2rem; }
+  .badge-count {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--white);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.12rem 0.5rem;
+    border-radius: 10px;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+  }
+  .admin-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 1rem; }
+  .admin-table th {
+    text-align: left; padding: 0.55rem 0.7rem;
+    background: var(--gray-50); font-weight: 600;
+    font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--gray-600);
+    border-bottom: 2px solid var(--gray-200);
+  }
+  .admin-table td { padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--gray-100); }
+  .admin-unsched { margin-top: 0.8rem; font-size: 0.82rem; color: var(--red); font-weight: 500; }
+  .admin-unsched.alldone { color: var(--green); }
+
+  /* ═══ FOOTER ═══ */
+  .footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.72rem;
+    color: var(--gray-400);
+  }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 640px) {
+    .hero { padding: 2.5rem 1rem 2.5rem; }
+    .info-card { grid-template-columns: repeat(2, 1fr); padding: 1rem; }
+    .panel { padding: 1.5rem 1.25rem; }
+    .slots-grid { grid-template-columns: repeat(2, 1fr); }
+    .admin-wrap { padding: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">2026–2027 Officer Elections</div>
+    <h1>State College FBLA<em>Interview Sign-Up</em></h1>
+    <p>Enter your name, choose a time slot, and you're set. Interviews are 7 minutes each.</p>
+  </div>
+</div>
+
+<!-- ═══════════════ INFO STRIP ═══════════════ -->
+<div class="info-strip">
+  <div class="info-card">
+    <div class="info-item">
+      <div class="icon">📅</div>
+      <div class="label">Days</div>
+      <div class="val">Mon – Thu<br><small>Fri backup</small></div>
+    </div>
+    <div class="info-item">
+      <div class="icon">🕓</div>
+      <div class="label">Start</div>
+      <div class="val">4:00 PM</div>
+    </div>
+    <div class="info-item">
+      <div class="icon">⏱</div>
+      <div class="label">Duration</div>
+      <div class="val">7 min</div>
+    </div>
+    <div class="info-item">
+      <div class="icon">👥</div>
+      <div class="label">While waiting</div>
+      <div class="val">Group activity</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<div class="container">
+
+  <!-- Steps -->
+  <div class="steps">
+    <div class="stp active" id="s1"><div class="stp-n">1</div>Your Info</div>
+    <div class="stp-line"></div>
+    <div class="stp" id="s2"><div class="stp-n">2</div>Pick Slot</div>
+    <div class="stp-line"></div>
+    <div class="stp" id="s3"><div class="stp-n">3</div>Confirmed</div>
+  </div>
+
+  <!-- ═══ PANEL 1: Your Info ═══ -->
+  <div class="panel active" id="p1">
+    <h2>Your Information</h2>
+    <p class="sub">Enter your name and school email so we can confirm your slot.</p>
+
+    <div id="errBanner1" class="err-banner"></div>
+
+    <div class="field">
+      <label for="inpName">Full Name</label>
+      <input type="text" id="inpName" placeholder="e.g. Jane Smith" autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="inpEmail">School Email</label>
+      <input type="email" id="inpEmail" placeholder="e.g. abc12@scasd.org" autocomplete="email">
+      <div class="hint">Use your @scasd.org email address.</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" id="btnToSlots">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ═══ PANEL 2: Pick Slot ═══ -->
+  <div class="panel" id="p2">
+    <h2>Choose Your Interview Slot</h2>
+    <p class="sub" id="slotSub">Signing up as: —</p>
+
+    <div id="errBanner2" class="err-banner"></div>
+
+    <div class="day-tabs" id="dayTabs"></div>
+    <div id="slotsArea"></div>
+
+    <div class="group-note">
+      <strong>📋 Group Activity:</strong> While you're not interviewing, you'll participate in a collaborative activity with the other candidates present that day. This helps us see how you work with a team — bring your best energy!
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-outline" id="btnBack1">← Back</button>
+      <button class="btn btn-primary" id="btnConfirm" disabled>Confirm Slot →</button>
+    </div>
+  </div>
+
+  <!-- ═══ PANEL 3: Confirmation ═══ -->
+  <div class="panel" id="p3">
+    <div class="confirm-center">
+      <div class="confirm-check">✓</div>
+      <h2>You're all set!</h2>
+      <p class="sub" style="margin-bottom:0;">Your interview slot has been reserved.</p>
+      <div class="confirm-card" id="confirmCard"></div>
+    </div>
+    <div class="group-note" style="margin-top:1.5rem;">
+      <strong>What to expect:</strong> Arrive at the start of the session for your day. You'll join a group activity with other candidates while waiting for your individual interview. Dress business casual and bring your best self!
+    </div>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn btn-outline" onclick="location.reload()">← Sign up another person</button>
+    </div>
+  </div>
+
+  <!-- ═══ ADMIN ═══ -->
+  <div class="admin-toggle">
+    <button onclick="toggleAdmin()">⚙️ Admin View</button>
+  </div>
+  <div class="admin-wrap" id="adminWrap">
+    <h2>Interview Schedule <span class="badge-count" id="adminCount">0</span></h2>
+    <p class="sub">Live data from the Google Sheet. <button class="btn btn-outline" style="font-size:0.75rem;padding:0.35rem 0.8rem;margin-left:0.5rem;" onclick="loadAdmin()">↻ Refresh</button></p>
+    <div id="adminContent"><div class="slots-loading"><div class="spinner"></div><br>Loading…</div></div>
+  </div>
+
+  <div class="footer">State College Area FBLA · Officer Elections 2026–2027</div>
+</div>
+
+<script>
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  CONFIGURATION — UPDATE THESE VALUES                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// 🔗 Paste your Google Apps Script Web App URL here:
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+// 📅 Interview days
+const DAYS = [
+  { label: 'Monday, May 4',          key: 'mon',  slots: 9 },
+  { label: 'Tuesday, May 5',         key: 'tue',  slots: 9 },
+  { label: 'Thursday, May 7',        key: 'thu',  slots: 9 },
+  { label: 'Friday, May 8 (Backup)', key: 'fri',  slots: 9 },
+];
+
+const START_HOUR = 16; // 4:00 PM in 24h
+const START_MIN  = 0;
+const SLOT_MIN   = 7;
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  SLOT GENERATION                                            ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+function fmtTime(h, m) {
+  const ap = h >= 12 ? 'PM' : 'AM';
+  const hr = h > 12 ? h - 12 : h === 0 ? 12 : h;
+  return `${hr}:${m.toString().padStart(2, '0')} ${ap}`;
+}
+
+function makeSlots(day) {
+  const out = [];
+  let h = START_HOUR, m = START_MIN;
+  for (let i = 0; i < day.slots; i++) {
+    const s = fmtTime(h, m);
+    m += SLOT_MIN;
+    if (m >= 60) { h++; m -= 60; }
+    out.push({ id: `${day.key}-${i}`, start: s, end: fmtTime(h, m), dayLabel: day.label, dayKey: day.key });
+  }
+  return out;
+}
+
+const ALL_SLOTS = {};
+DAYS.forEach(d => ALL_SLOTS[d.key] = makeSlots(d));
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  STATE                                                      ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+let userName = '';
+let userEmail = '';
+let activeDay = DAYS[0].key;
+let pickedSlot = null;
+let takenSlots = {};  // { slotId: true }
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  GOOGLE SHEET COMMUNICATION                                 ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+async function fetchTaken() {
+  try {
+    const r = await fetch(APPS_SCRIPT_URL + '?action=getTaken');
+    const d = await r.json();
+    takenSlots = {};
+    if (d.taken && Array.isArray(d.taken)) {
+      d.taken.forEach(id => takenSlots[id] = true);
+    }
+  } catch (e) {
+    console.error('Failed to load slots:', e);
+  }
+}
+
+async function submitSignup(name, email, slotId, dayLabel, timeStr) {
+  const params = new URLSearchParams({
+    action: 'signup',
+    name, email, slotId, day: dayLabel, time: timeStr
+  });
+  const r = await fetch(APPS_SCRIPT_URL + '?' + params.toString());
+  return await r.json();
+}
+
+async function fetchAll() {
+  try {
+    const r = await fetch(APPS_SCRIPT_URL + '?action=getAll');
+    return await r.json();
+  } catch (e) {
+    console.error('Failed to load admin data:', e);
+    return { rows: [] };
+  }
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  RENDER                                                     ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+function showPanel(n) {
+  [1, 2, 3].forEach(i => {
+    document.getElementById(`p${i}`).classList.toggle('active', i === n);
+    const st = document.getElementById(`s${i}`);
+    st.classList.remove('active', 'done');
+    if (i === n) st.classList.add('active');
+    if (i < n) st.classList.add('done');
+  });
+}
+
+function renderDayTabs() {
+  const c = document.getElementById('dayTabs');
+  c.innerHTML = '';
+  DAYS.forEach(d => {
+    const avail = (ALL_SLOTS[d.key] || []).filter(s => !takenSlots[s.id]).length;
+    const btn = document.createElement('button');
+    btn.className = 'dtab' + (activeDay === d.key ? ' active' : '');
+    btn.innerHTML = `${d.label} <span class="slot-count">${avail} open</span>`;
+    btn.onclick = () => { activeDay = d.key; renderDayTabs(); renderSlots(); };
+    c.appendChild(btn);
+  });
+}
+
+function renderSlots() {
+  const area = document.getElementById('slotsArea');
+  const slots = ALL_SLOTS[activeDay] || [];
+  area.innerHTML = '';
+  const grid = document.createElement('div');
+  grid.className = 'slots-grid';
+  slots.forEach(sl => {
+    const d = document.createElement('button');
+    d.className = 'slot';
+    const taken = !!takenSlots[sl.id];
+    if (taken) d.classList.add('taken');
+    if (pickedSlot && pickedSlot.id === sl.id) d.classList.add('picked');
+    d.innerHTML = `<div class="time">${sl.start} – ${sl.end}</div><div class="avail">${taken ? 'Taken' : 'Available'}</div>`;
+    if (!taken) {
+      d.onclick = () => {
+        pickedSlot = sl;
+        renderSlots();
+        document.getElementById('btnConfirm').disabled = false;
+      };
+    }
+    grid.appendChild(d);
+  });
+  area.appendChild(grid);
+}
+
+function showSlotsLoading() {
+  document.getElementById('slotsArea').innerHTML = '<div class="slots-loading"><div class="spinner"></div><br>Loading available slots…</div>';
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  NAVIGATION & VALIDATION                                    ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+document.getElementById('btnToSlots').onclick = async () => {
+  const name = document.getElementById('inpName').value.trim();
+  const email = document.getElementById('inpEmail').value.trim();
+  const err = document.getElementById('errBanner1');
+  err.classList.remove('show');
+
+  if (!name) { err.textContent = 'Please enter your full name.'; err.classList.add('show'); return; }
+  if (!email || !email.includes('@')) {
+    err.textContent = 'Please enter a valid email address.'; err.classList.add('show'); return;
+  }
+
+  userName = name;
+  userEmail = email;
+  document.getElementById('slotSub').textContent = `Signing up as: ${name}`;
+  pickedSlot = null;
+  document.getElementById('btnConfirm').disabled = true;
+
+  showPanel(2);
+  showSlotsLoading();
+  await fetchTaken();
+  renderDayTabs();
+  renderSlots();
+};
+
+document.getElementById('btnBack1').onclick = () => showPanel(1);
+
+document.getElementById('btnConfirm').onclick = async () => {
+  if (!pickedSlot) return;
+  const btn = document.getElementById('btnConfirm');
+  const err = document.getElementById('errBanner2');
+  err.classList.remove('show');
+  btn.disabled = true;
+  btn.textContent = 'Reserving…';
+
+  try {
+    const timeStr = `${pickedSlot.start} – ${pickedSlot.end}`;
+    const res = await submitSignup(userName, userEmail, pickedSlot.id, pickedSlot.dayLabel, timeStr);
+
+    if (res.status === 'taken') {
+      err.textContent = 'That slot was just taken! Please choose a different one.';
+      err.classList.add('show');
+      await fetchTaken();
+      renderDayTabs();
+      renderSlots();
+      btn.textContent = 'Confirm Slot →';
+      return;
+    }
+
+    if (res.status !== 'ok') {
+      err.textContent = res.message || 'Something went wrong. Please try again.';
+      err.classList.add('show');
+      btn.textContent = 'Confirm Slot →';
+      return;
+    }
+
+    // Success
+    document.getElementById('confirmCard').innerHTML = `
+      <div class="row"><b>Name:</b> ${userName}</div>
+      <div class="row"><b>Day:</b> ${pickedSlot.dayLabel}</div>
+      <div class="row"><b>Time:</b> ${timeStr}</div>
+    `;
+    showPanel(3);
+  } catch (e) {
+    err.textContent = 'Network error — check your connection and try again.';
+    err.classList.add('show');
+    btn.textContent = 'Confirm Slot →';
+  }
+};
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  ADMIN                                                      ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+function toggleAdmin() {
+  const w = document.getElementById('adminWrap');
+  w.classList.toggle('show');
+  if (w.classList.contains('show')) loadAdmin();
+}
+
+async function loadAdmin() {
+  const c = document.getElementById('adminContent');
+  c.innerHTML = '<div class="slots-loading"><div class="spinner"></div><br>Loading…</div>';
+
+  const data = await fetchAll();
+  const rows = data.rows || [];
+
+  document.getElementById('adminCount').textContent = rows.length;
+
+  if (!rows.length) {
+    c.innerHTML = '<p style="color:var(--gray-400);font-size:0.88rem;padding:1rem 0;">No sign-ups yet.</p>';
+    return;
+  }
+
+  let html = '<table class="admin-table"><thead><tr><th>Name</th><th>Email</th><th>Day</th><th>Time</th></tr></thead><tbody>';
+  rows.forEach(r => {
+    html += `<tr><td><strong>${esc(r.name)}</strong></td><td>${esc(r.email)}</td><td>${esc(r.day)}</td><td>${esc(r.time)}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  c.innerHTML = html;
+}
+
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
+}
+</script>
+
+</body>
+</html>
