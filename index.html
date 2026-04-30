@@ -351,7 +351,6 @@
 
   .btn-row { display: flex; gap: 0.65rem; margin-top: 1.5rem; flex-wrap: wrap; }
 
-  /* ═══ ADMIN ═══ */
 
   /* ═══ FOOTER ═══ */
   .footer {
@@ -367,7 +366,6 @@
     .info-card { grid-template-columns: repeat(2, 1fr); padding: 1rem; }
     .panel { padding: 1.5rem 1.25rem; }
     .slots-grid { grid-template-columns: repeat(2, 1fr); }
-    .admin-wrap { padding: 1.25rem; }
   }
 </style>
 </head>
@@ -477,6 +475,9 @@
     </div>
   </div>
 
+  <div class="footer">State College Area FBLA · Officer Elections 2026–2027</div>
+</div>
+
 <script>
 // ╔══════════════════════════════════════════════════════════════╗
 // ║  CONFIGURATION — UPDATE THESE VALUES                        ║
@@ -558,15 +559,6 @@ async function submitSignup(name, email, slotId, dayLabel, timeStr) {
   return await r.json();
 }
 
-async function fetchAll() {
-  try {
-    const r = await fetch(APPS_SCRIPT_URL + '?action=getAll');
-    return await r.json();
-  } catch (e) {
-    console.error('Failed to load admin data:', e);
-    return { rows: [] };
-  }
-}
 
 // ╔══════════════════════════════════════════════════════════════╗
 // ║  RENDER                                                     ║
@@ -697,43 +689,7 @@ document.getElementById('btnConfirm').onclick = async () => {
   }
 };
 
-// ╔══════════════════════════════════════════════════════════════╗
-// ║  ADMIN                                                      ║
-// ╚══════════════════════════════════════════════════════════════╝
 
-function toggleAdmin() {
-  const w = document.getElementById('adminWrap');
-  w.classList.toggle('show');
-  if (w.classList.contains('show')) loadAdmin();
-}
-
-async function loadAdmin() {
-  const c = document.getElementById('adminContent');
-  c.innerHTML = '<div class="slots-loading"><div class="spinner"></div><br>Loading…</div>';
-
-  const data = await fetchAll();
-  const rows = data.rows || [];
-
-  document.getElementById('adminCount').textContent = rows.length;
-
-  if (!rows.length) {
-    c.innerHTML = '<p style="color:var(--gray-400);font-size:0.88rem;padding:1rem 0;">No sign-ups yet.</p>';
-    return;
-  }
-
-  let html = '<table class="admin-table"><thead><tr><th>Name</th><th>Email</th><th>Day</th><th>Time</th></tr></thead><tbody>';
-  rows.forEach(r => {
-    html += `<tr><td><strong>${esc(r.name)}</strong></td><td>${esc(r.email)}</td><td>${esc(r.day)}</td><td>${esc(r.time)}</td></tr>`;
-  });
-  html += '</tbody></table>';
-  c.innerHTML = html;
-}
-
-function esc(s) {
-  const d = document.createElement('div');
-  d.textContent = s || '';
-  return d.innerHTML;
-}
 </script>
 
 </body>
