@@ -496,7 +496,9 @@ const DAYS = [
 
 const START_HOUR = 16; // 4:00 PM in 24h
 const START_MIN  = 0;
-const SLOT_MIN   = 8; // 7 min interview + 1 min buffer
+const INTERVIEW_MIN = 7;  // displayed interview length
+const BUFFER_MIN   = 1;  // hidden gap between slots
+const SLOT_MIN     = INTERVIEW_MIN + BUFFER_MIN; // total per slot
 
 // ╔══════════════════════════════════════════════════════════════╗
 // ║  SLOT GENERATION                                            ║
@@ -513,9 +515,13 @@ function makeSlots(day) {
   let h = START_HOUR, m = START_MIN;
   for (let i = 0; i < day.slots; i++) {
     const s = fmtTime(h, m);
+    // Calculate end time using interview duration only (no buffer shown)
+    let endH = h, endM = m + INTERVIEW_MIN;
+    if (endM >= 60) { endH++; endM -= 60; }
+    out.push({ id: `${day.key}-${i}`, start: s, end: fmtTime(endH, endM), dayLabel: day.label, dayKey: day.key });
+    // Advance by full slot (interview + buffer) for next slot's start
     m += SLOT_MIN;
     if (m >= 60) { h++; m -= 60; }
-    out.push({ id: `${day.key}-${i}`, start: s, end: fmtTime(h, m), dayLabel: day.label, dayKey: day.key });
   }
   return out;
 }
